@@ -1,0 +1,442 @@
+/* Main Layout Container */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Layout Body - Main Content Area */
+.layout-body {
+  flex: 1;
+  display: flex;
+  height: calc(100vh - 72px); /* Account for navbar height */
+  overflow: hidden;
+  position: relative;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Layout Content - Chat Area */
+.layout-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Desktop - Sidebar Integration */
+@media (min-width: 1200px) {
+  .layout-body {
+    padding: 20px 20px 20px 0; /* No left padding since sidebar has its own margin */
+  }
+  
+  /* When sidebar is present, adjust layout */
+  .layout-body:has(.sidebar.open) {
+    padding-left: 0;
+  }
+}
+
+/* Large Desktop Optimization */
+@media (min-width: 1400px) {
+  .layout-body {
+    padding: 24px;
+    gap: 24px;
+  }
+  
+  .layout-content {
+    border-radius: 16px;
+  }
+  
+  .layout-content .input-area {
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+/* Integrate Chat Window */
+.layout-content .chat-window {
+  flex: 1;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Integrate Chat Input */
+.layout-content .input-area {
+  border-radius: 0 0 12px 12px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* Desktop-First Responsive Design */
+
+/* Standard Desktop */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .layout-body {
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
+/* Tablet Landscape */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .layout-body {
+    padding: 12px;
+    gap: 12px;
+    height: calc(100vh - 68px);
+  }
+  
+  .layout-content {
+    border-radius: 10px;
+  }
+  
+  .layout-content .input-area {
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+/* Tablet Portrait and Mobile - Stack Layout */
+@media (max-width: 768px) {
+  .layout-container {
+    background: #f5f7fa;
+  }
+  
+  .layout-body {
+    height: calc(100vh - 64px);
+    padding: 8px;
+    gap: 0;
+  }
+  
+  .layout-content {
+    border-radius: 8px;
+    flex: 1;
+  }
+  
+  .layout-content .input-area {
+    border-radius: 0 0 8px 8px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .layout-container {
+    background: white;
+  }
+  
+  .layout-body {
+    height: calc(100vh - 60px);
+    padding: 0;
+  }
+  
+  .layout-content {
+    border-radius: 0;
+    height: 100%;
+    box-shadow: none;
+  }
+  
+  .layout-content .input-area {
+    border-radius: 0;
+  }
+  
+  .layout-content .chat-window {
+    border-radius: 0;
+  }
+}
+
+/* Loading State */
+.layout-container.loading {
+  opacity: 0.9;
+}
+
+.layout-container.loading .layout-content {
+  pointer-events: none;
+}
+
+.layout-container.loading::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+/* Error States */
+.layout-content.error {
+  border: 2px solid #ff6b6b;
+  box-shadow: 0 8px 32px rgba(255, 107, 107, 0.2);
+}
+
+/* Focus Management */
+.layout-content:focus-within {
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+}
+
+/* Desktop Sidebar Interaction */
+@media (min-width: 1200px) {
+  /* Remove the blur effect on desktop */
+  .layout-body:has(.sidebar.open) .layout-content {
+    filter: none;
+    pointer-events: auto;
+  }
+}
+
+/* Mobile Sidebar Interaction */
+@media (max-width: 1199px) {
+  .layout-body:has(.sidebar.open) .layout-content {
+    filter: blur(1px);
+    pointer-events: none;
+  }
+}
+
+/* Very Small Screens */
+@media (max-width: 360px) {
+  .layout-body {
+    height: calc(100vh - 80px);
+  }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .layout-body {
+    height: calc(100vh - 50px);
+    padding: 4px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .layout-container {
+    background: linear-gradient(135deg, #4c51bf 0%, #553c9a 100%);
+  }
+  
+  .layout-content {
+    background: #2d3748;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  
+  .layout-content .chat-window {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  }
+  
+  .layout-content:focus-within {
+    box-shadow: 0 8px 32px rgba(76, 81, 191, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    .layout-container {
+      background: #1a202c;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .layout-container {
+      background: #2d3748;
+    }
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .layout-container {
+    background: #fff;
+  }
+  
+  .layout-content {
+    background: #fff;
+    border: 3px solid #000;
+    box-shadow: none;
+  }
+  
+  .layout-content .chat-window {
+    background: #fff;
+    border-top: 2px solid #000;
+  }
+  
+  .layout-content.error {
+    border-color: #d00;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .layout-content,
+  .layout-container,
+  .layout-container::after {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .layout-container {
+    height: auto;
+    background: white;
+  }
+  
+  .layout-body {
+    height: auto;
+    padding: 0;
+  }
+  
+  .layout-content {
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .layout-content .input-area {
+    display: none;
+  }
+  
+  .layout-content .chat-window {
+    background: white;
+    border-radius: 0;
+  }
+}
+
+/* Animation for initial load */
+.layout-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.layout-content {
+  animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar for the entire layout */
+.layout-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.layout-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.layout-content::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.layout-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.5);
+}
+
+/* Performance Optimizations */
+.layout-container {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.layout-content {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Connection Status Indicator */
+.layout-container.offline::before {
+  content: 'Offline';
+  position: fixed;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff6b6b;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 9999;
+  animation: slideDown 0.3s ease-out;
+}
+
+.layout-container.connecting::before {
+  content: 'Connecting...';
+  background: #fbbf24;
+  color: #1f2937;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* Desktop-specific optimizations */
+@media (min-width: 1200px) {
+  .layout-container {
+    min-height: 100vh;
+  }
+  
+  .layout-body {
+    min-height: 0;
+  }
+  
+  .layout-content {
+    min-height: calc(100vh - 112px); /* navbar + padding */
+  }
+}
+
+/* Ultra-wide screen support */
+@media (min-width: 1920px) {
+  .layout-body {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  box-sizing: border-box;
+}
+
+.layout-container * {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}

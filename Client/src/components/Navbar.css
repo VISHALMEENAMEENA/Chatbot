@@ -1,0 +1,307 @@
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+/* Logo/Brand Link */
+.navbar > a {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.navbar > a:hover {
+  transform: scale(1.05);
+}
+
+.navbar h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(45deg, #ffffff, #e2e8f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.navbar > a:hover h1 {
+  background: linear-gradient(45deg, #ffffff, #f7fafc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Navigation Buttons Container */
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Button Base Styles */
+.nav-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 80px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Primary Button (Dashboard) */
+.nav-buttons a:first-child button,
+.nav-buttons button:first-of-type {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.nav-buttons a:first-child button:hover,
+.nav-buttons button:first-of-type:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Secondary Button (Logout, Login, Signup) */
+.nav-buttons button:last-of-type,
+.nav-buttons a:last-child button {
+  background: white;
+  color: #667eea;
+  border: 2px solid white;
+}
+
+.nav-buttons button:last-of-type:hover,
+.nav-buttons a:last-child button:hover {
+  background: #f7fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Link Styling */
+.nav-buttons a {
+  text-decoration: none;
+}
+
+/* Button Shine Effect */
+.nav-buttons button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-buttons button:hover::before {
+  left: 100%;
+}
+
+/* Active State */
+.nav-buttons button:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+/* Focus States for Accessibility */
+.navbar > a:focus-visible,
+.nav-buttons button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+  
+  .navbar h1 {
+    font-size: 20px;
+  }
+  
+  .nav-buttons {
+    gap: 8px;
+  }
+  
+  .nav-buttons button {
+    padding: 8px 16px;
+    font-size: 13px;
+    min-width: 70px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .navbar h1 {
+    font-size: 18px;
+  }
+  
+  .nav-buttons {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .nav-buttons button {
+    padding: 6px 12px;
+    font-size: 12px;
+    min-width: 60px;
+    height: 32px;
+    border-radius: 20px;
+  }
+}
+
+/* Very Small Screens - Stack Layout */
+@media (max-width: 360px) {
+  .navbar {
+    flex-direction: column;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .nav-buttons {
+    margin-top: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    background: linear-gradient(135deg, #4c51bf 0%, #553c9a 100%);
+    box-shadow: 0 4px 20px rgba(76, 81, 191, 0.4);
+  }
+  
+  .navbar h1 {
+    background: linear-gradient(45deg, #f7fafc, #e2e8f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .navbar {
+    background: #000;
+    border-bottom: 3px solid #fff;
+  }
+  
+  .navbar h1 {
+    background: #fff;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .nav-buttons button {
+    border-width: 3px;
+  }
+  
+  .nav-buttons a:first-child button,
+  .nav-buttons button:first-of-type {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+  }
+  
+  .nav-buttons button:last-of-type,
+  .nav-buttons a:last-child button {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .navbar > a,
+  .navbar h1,
+  .nav-buttons button,
+  .nav-buttons button::before {
+    transition: none;
+  }
+  
+  .navbar > a:hover,
+  .nav-buttons button:hover {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .navbar {
+    background: #fff;
+    color: #000;
+    box-shadow: none;
+    border-bottom: 2px solid #000;
+  }
+  
+  .nav-buttons {
+    display: none;
+  }
+  
+  .navbar h1 {
+    background: #000;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Loading State */
+.navbar.loading {
+  opacity: 0.8;
+}
+
+.navbar.loading button {
+  pointer-events: none;
+}
+
+/* Animation for navbar entrance */
+.navbar {
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

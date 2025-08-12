@@ -1,0 +1,225 @@
+/* =================================================================
+   Global Resets and Base Styles
+================================================================= */
+
+/* Comprehensive CSS Reset (inspired by Eric Meyer) */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+  display: block;
+}
+
+/* Global box-sizing and default font styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.6;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =================================================================
+   CSS Variables for Theming and Global Utilities
+================================================================= */
+:root {
+  --primary-color: #333;
+  --secondary-color: #555;
+  --accent-color: #007acc;
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --border-color: #ddd;
+  --transition-speed: 0.3s;
+  --max-width: 1200px;
+  --font-base: 'Arial', sans-serif;
+  --font-heading: 'Helvetica Neue', sans-serif;
+}
+
+/* Dark mode variables */
+body.dark {
+  --primary-color: #eee;
+  --secondary-color: #ccc;
+  --accent-color: #66afe9;
+  --bg-color: #222;
+  --text-color: #f9f9f9;
+  --border-color: #444;
+}
+
+/* =================================================================
+   Typography and Base Elements
+================================================================= */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-family: var(--font-base);
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =================================================================
+   Layout and Utility Classes
+================================================================= */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Spacing utilities */
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.p-1 { padding: 1rem; }
+.p-2 { padding: 2rem; }
+
+/* Flexbox helper */
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =================================================================
+   Responsive Images and Videos
+================================================================= */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* =================================================================
+   Custom Scrollbar (Webkit Browsers)
+================================================================= */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 4px;
+}
+
+/* =================================================================
+   Form Elements
+================================================================= */
+input, textarea, button, select {
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* =================================================================
+   Global Utility Classes for Transitions & Animations
+================================================================= */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================================================
+   Media Queries for Responsiveness
+================================================================= */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* =================================================================
+   Additional Global Styles
+================================================================= */
+
+/* Body Background Enhancement */
+body {
+  background: linear-gradient(135deg, #f9f9f9 0%, #eaeaea 100%);
+}
+
+/* Link Focus Outline for Accessibility */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 2px dashed var(--accent-color);
+  outline-offset: 2px;
+}

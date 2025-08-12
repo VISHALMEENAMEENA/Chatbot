@@ -1,0 +1,336 @@
+/* Chat Input Container */
+.input-area {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.input-area:focus-within {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Textarea Styling */
+.input-area textarea {
+  flex: 1;
+  min-height: 44px;
+  max-height: 150px;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 22px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  background: white;
+  color: #2d3748;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.input-area textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1), 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.input-area textarea:disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+.input-area textarea::placeholder {
+  color: #a0aec0;
+  transition: color 0.3s ease;
+}
+
+.input-area textarea:focus::placeholder {
+  color: #cbd5e0;
+}
+
+/* Send Button */
+.input-area button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  height: 44px;
+  padding: 0 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.input-area button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.input-area button:hover::before {
+  left: 100%;
+}
+
+.input-area button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.input-area button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.input-area button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(160, 174, 192, 0.2);
+}
+
+.input-area button:disabled::before {
+  display: none;
+}
+
+.input-area button:disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(160, 174, 192, 0.2);
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Button Text Animation */
+.input-area button span:not(.spinner) {
+  transition: transform 0.2s ease;
+}
+
+.input-area button:hover span:not(.spinner) {
+  transform: scale(1.05);
+}
+
+/* Focus States for Accessibility */
+.input-area button:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.input-area textarea:focus-visible {
+  outline: none; /* Already handled by border and box-shadow */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .input-area {
+    padding: 16px;
+    gap: 10px;
+  }
+  
+  .input-area textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 10px 14px;
+    min-height: 40px;
+  }
+  
+  .input-area button {
+    min-width: 50px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+  
+  .spinner {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input-area {
+    padding: 12px;
+    gap: 8px;
+  }
+  
+  .input-area textarea {
+    padding: 8px 12px;
+    border-radius: 20px;
+  }
+  
+  .input-area button {
+    border-radius: 20px;
+    min-width: 44px;
+    height: 36px;
+    padding: 0 12px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .input-area {
+    background: rgba(45, 55, 72, 0.95);
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .input-area:focus-within {
+    background: rgba(45, 55, 72, 1);
+  }
+  
+  .input-area textarea {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-color: #2d3748;
+  }
+  
+  .input-area textarea:focus {
+    border-color: #667eea;
+    background: #2d3748;
+  }
+  
+  .input-area textarea:disabled {
+    background: #2d3748;
+    color: #718096;
+  }
+  
+  .input-area textarea::placeholder {
+    color: #718096;
+  }
+  
+  .input-area textarea:focus::placeholder {
+    color: #a0aec0;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .input-area textarea {
+    border-width: 3px;
+    border-color: #000;
+  }
+  
+  .input-area textarea:focus {
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.3);
+  }
+  
+  .input-area button {
+    background: #000;
+    border: 2px solid #fff;
+  }
+  
+  .input-area button:disabled {
+    background: #666;
+    border-color: #999;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .input-area textarea,
+  .input-area button,
+  .input-area button span,
+  .input-area button::before {
+    transition: none;
+  }
+  
+  .input-area button:hover {
+    transform: none;
+  }
+  
+  .input-area textarea:focus {
+    transform: none;
+  }
+  
+  .spinner {
+    animation: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+  }
+}
+
+/* Custom Scrollbar for Textarea */
+.input-area textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.input-area textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.input-area textarea::-webkit-scrollbar-thumb {
+  background: rgba(160, 174, 192, 0.5);
+  border-radius: 2px;
+}
+
+.input-area textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 174, 192, 0.7);
+}
+
+/* Smooth height transitions */
+.input-area textarea {
+  transition: height 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Loading state for textarea */
+.input-area textarea[disabled] {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Enhanced focus ring for better accessibility */
+.input-area textarea:focus {
+  position: relative;
+}
+
+.input-area textarea:focus::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 24px;
+  pointer-events: none;
+}

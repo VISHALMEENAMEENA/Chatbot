@@ -1,0 +1,336 @@
+/* Chat Window Container */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Messages Container */
+.messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+.messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Message Base Styles */
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  margin-bottom: 8px;
+  animation: messageSlideIn 0.3s ease-out;
+}
+
+/* User Messages */
+.message.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.message.user .message-content {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px 20px 4px 20px;
+  padding: 12px 18px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  position: relative;
+}
+
+.message.user .message-content::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: -8px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-left-color: #764ba2;
+  border-bottom: none;
+  border-right: none;
+}
+
+/* AI Messages */
+.message.ai {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.message.ai .message-content {
+  background: white;
+  color: #2d3748;
+  border-radius: 20px 20px 20px 4px;
+  padding: 12px 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.message.ai .message-content::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: white;
+  border-bottom: none;
+  border-left: none;
+}
+
+/* Error Messages */
+.message.error .message-content {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.message.error.ai .message-content::before {
+  border-right-color: #ff6b6b;
+}
+
+.message.error.user .message-content::before {
+  border-left-color: #ee5a52;
+}
+
+/* Message Text */
+.message-content {
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  transition: all 0.3s ease;
+}
+
+.message-content:hover {
+  transform: translateY(-1px);
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a0aec0;
+  animation: typingPulse 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0s;
+}
+
+/* Message Timestamp */
+.message-timestamp {
+  font-size: 11px;
+  color: #a0aec0;
+  margin-top: 4px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.message:hover .message-timestamp {
+  opacity: 1;
+}
+
+.message.user .message-timestamp {
+  text-align: right;
+}
+
+.message.ai .message-timestamp {
+  text-align: left;
+}
+
+/* Scroll Anchor */
+.scroll-anchor {
+  height: 1px;
+  width: 1px;
+  opacity: 0;
+}
+
+/* Animations */
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typingPulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .messages {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .message {
+    max-width: 90%;
+  }
+  
+  .message-content {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+  
+  .message.user .message-content,
+  .message.ai .message-content {
+    border-radius: 16px;
+  }
+  
+  .message.user .message-content {
+    border-radius: 16px 16px 4px 16px;
+  }
+  
+  .message.ai .message-content {
+    border-radius: 16px 16px 16px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .messages {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .message {
+    max-width: 95%;
+  }
+  
+  .message-content {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .chat-window {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  }
+  
+  .message.ai .message-content {
+    background: #4a5568;
+    color: #e2e8f0;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .message.ai .message-content::before {
+    border-right-color: #4a5568;
+  }
+  
+  .message-timestamp {
+    color: #718096;
+  }
+  
+  .typing-indicator span {
+    background: #718096;
+  }
+}
+
+/* Focus and Accessibility */
+.message:focus-within {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .message.user .message-content {
+    background: #000;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+  
+  .message.ai .message-content {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+  }
+  
+  .message-timestamp {
+    color: #666;
+    font-weight: bold;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .message {
+    animation: none;
+  }
+  
+  .typing-indicator span {
+    animation: none;
+    opacity: 0.7;
+  }
+  
+  .messages {
+    scroll-behavior: auto;
+  }
+  
+  .message-content {
+    transition: none;
+  }
+  
+  .message-content:hover {
+    transform: none;
+  }
+}
