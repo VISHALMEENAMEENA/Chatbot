@@ -10,6 +10,50 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
+// Add this after your existing routes in index.js
+
+// Test database connection
+app.get("/api/test-db", async (req, res) => {
+  try {
+    const User = require("./models/User");
+    const count = await User.countDocuments();
+    res.json({
+      success: true,
+      message: "Database connected successfully",
+      userCount: count,
+      mongoUri: process.env.MONGO_URI ? "Set" : "Not set",
+      jwtSecret: process.env.JWT_SECRET ? "Set" : "Not set"
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Database connection failed",
+      error: error.message
+    });
+  }
+});
+
+// Test signup route
+app.post("/api/test-signup", async (req, res) => {
+  try {
+    const testUser = {
+      name: "Test User",
+      email: "test@example.com",
+      password: "password123"
+    };
+    
+    res.json({
+      success: true,
+      message: "Signup route is accessible",
+      testData: testUser
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
 
 // Ensure environment variables are loaded
 if (!MONGO_URI || !JWT_SECRET) {
