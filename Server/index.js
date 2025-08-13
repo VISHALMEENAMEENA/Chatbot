@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const aiRoutes = require("./routes/aiRoutes"); // ✅ Import AI routes
 app.use(core(
   {
-    origin:[],
+    origin:["chatbot-sjvh-frontend.vercel.app"],
     methods:["Post","Get"],
     credentials:true,
   }
