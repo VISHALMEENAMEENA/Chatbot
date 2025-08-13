@@ -5,6 +5,15 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const aiRoutes = require("./routes/aiRoutes"); // ✅ Import AI routes
+app.use(core(
+  {
+    origin:[],
+    methods:["Post","Get"],
+    credentials:true,
+  }
+));
+const serverless = require("serverless-http");
+module.exports = serverless(app);
 
 const app = express();
 
