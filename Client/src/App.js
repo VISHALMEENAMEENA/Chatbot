@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -21,7 +20,6 @@ const PublicRoute = ({ children }) => {
 const App = () => {
   const [isAuth, setIsAuth] = useState(isAuthenticated());
 
-  // Function to update auth state
   const updateAuthState = () => {
     const authStatus = isAuthenticated();
     console.log("Updating auth state:", authStatus);
@@ -29,17 +27,14 @@ const App = () => {
   };
 
   useEffect(() => {
-    // Initial auth check
     updateAuthState();
 
-    // Listen for storage changes (for logout from other tabs)
     const handleStorageChange = (e) => {
-      if (e.key === 'auth_token') {
+      if (e.key === "auth_token") {
         updateAuthState();
       }
     };
 
-    // Custom event listener for auth state changes
     const handleAuthChange = () => {
       updateAuthState();
     };
@@ -57,15 +52,13 @@ const App = () => {
     console.log("Logout initiated");
     logout();
     setIsAuth(false);
-    // Dispatch custom event to notify other components
-    window.dispatchEvent(new Event('authStateChanged'));
+    window.dispatchEvent(new Event("authStateChanged"));
   };
 
   const handleLoginSuccess = () => {
     console.log("Login success callback");
     setIsAuth(true);
-    // Dispatch custom event to notify other components
-    window.dispatchEvent(new Event('authStateChanged'));
+    window.dispatchEvent(new Event("authStateChanged"));
   };
 
   console.log("App render - isAuth:", isAuth);
@@ -73,22 +66,22 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Public routes - redirect if authenticated */}
-        <Route 
-          path="/login" 
+        {/* Public routes */}
+        <Route
+          path="/login"
           element={
             <PublicRoute>
               <Login setIsAuth={setIsAuth} onLoginSuccess={handleLoginSuccess} />
             </PublicRoute>
-          } 
+          }
         />
-        <Route 
-          path="/signup" 
+        <Route
+          path="/signup"
           element={
             <PublicRoute>
               <Signup setIsAuth={setIsAuth} onSignupSuccess={handleLoginSuccess} />
             </PublicRoute>
-          } 
+          }
         />
 
         {/* Protected routes */}
@@ -117,11 +110,8 @@ const App = () => {
           }
         />
 
-        {/* Fallback */}
-        <Route 
-          path="*" 
-          element={<Navigate to={isAuth ? "/chat" : "/login"} replace />} 
-        />
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to={isAuth ? "/chat" : "/login"} replace />} />
       </Routes>
     </Router>
   );
